@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/zhenya30000/fullstack-javascript-project-46/workflows/hexlet-check/badge.svg)](https://github.com/zhenya30000/fullstack-javascript-project-46/actions)
 
+[![.github/workflows/CI-tests.yml](https://github.com/zhenya30000/fullstack-javascript-project-46/actions/workflows/CI-tests.yml/badge.svg)](https://github.com/zhenya30000/fullstack-javascript-project-46/actions/workflows/CI-tests.yml)
+
 <a href="https://codeclimate.com/github/zhenya30000/fullstack-javascript-project-46/maintainability"><img src="https://api.codeclimate.com/v1/badges/efb541b8faa9a6d27aab/maintainability" /></a>
 
 <a href="https://codeclimate.com/github/zhenya30000/fullstack-javascript-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/efb541b8faa9a6d27aab/test_coverage" /></a>
