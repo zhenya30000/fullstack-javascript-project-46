@@ -1,7 +1,6 @@
 import fs from 'fs';
 import gendiff from '../index.js';
 import parseFile from '../src/parseFile.js';
-import path from 'path';
 
 let fileData1;
 
