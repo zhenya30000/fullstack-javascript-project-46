@@ -14,12 +14,7 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(
-      gendiff(
-        fs.readFileSync(filepath1, 'utf-8'),
-        fs.readFileSync(filepath2, 'utf-8'),
-      ),
-    );
+    console.log(gendiff(filepath1, filepath2));
   });
 
 program.parse();

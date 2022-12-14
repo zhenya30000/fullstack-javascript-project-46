@@ -1,5 +1,7 @@
 import fs from 'fs';
 import gendiff from '../index.js';
+import parseFile from '../src/parseFile.js';
+import path from 'path';
 
 let fileData1;
 
@@ -7,44 +9,44 @@ beforeAll(() => {
   fileData1 = fs.readFileSync('./__fixtures__/file1.json', 'utf-8');
 });
 
-test('Function mainflow', () => {
+test('JSON parser', () => {
+  expect(typeof parseFile('./__fixtures__/file1.json')).toEqual('object');
+});
+
+test('YML parser', () => {
+  expect(typeof parseFile('./__fixtures__/file1.yml')).toEqual('object');
+});
+
+test('Function mainflow with JSON files', () => {
   expect(
-    gendiff(
-      fs.readFileSync('./__fixtures__/file1.json', 'utf-8'),
-      fs.readFileSync('./__fixtures__/file2.json', 'utf-8'),
-    ),
+    gendiff('./__fixtures__/file1.json', './__fixtures__/file2.json'),
   ).toEqual(
     '{\n  - follow: false\n    host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n  + timeout: 20\n  + verbose: true\n}',
   );
 });
 
-test('Passes with both empty files', () => {
-  expect(gendiff('{}', '{}')).toEqual('{\n}');
+test('Function mainflow with YML files', () => {
+  expect(
+    gendiff('./__fixtures__/file1.yml', './__fixtures__/file2.yml'),
+  ).toEqual(
+    '{\n    name: github-actions\n    on: push\n  - test: true\n  + mode: hexlet\n  + test: false\n}',
+  );
 });
 
-test('Passes with one of the files is empty', () => {
+test('Passes with empty files', () => {
   expect(
-    gendiff(
-      fs.readFileSync('./__fixtures__/file2.json', 'utf-8'),
-      fs.readFileSync('./__fixtures__/file3.json', 'utf-8'),
-    ),
-  ).toEqual('{\n  - host: hexlet.io\n  - timeout: 20\n  - verbose: true\n}');
+    gendiff('./__fixtures__/file3.json', './__fixtures__/file3.json'),
+  ).toEqual('{\n}');
 });
 
 test('Passes with keys equals values', () => {
   expect(
-    gendiff(
-      fs.readFileSync('./__fixtures__/file4.json', 'utf-8'),
-      fs.readFileSync('./__fixtures__/file3.json', 'utf-8'),
-    ),
+    gendiff('./__fixtures__/file4.json', './__fixtures__/file3.json'),
   ).toEqual('{\n  - host: host\n  - timeout: timeout\n  - verbose: verbose\n}');
 });
 
 test('Passes if original data is immutable', () => {
-  gendiff(
-    fs.readFileSync('./__fixtures__/file1.json', 'utf-8'),
-    fs.readFileSync('./__fixtures__/file2.json', 'utf-8'),
-  );
+  gendiff('./__fixtures__/file1.json', './__fixtures__/file2.json');
   expect(fs.readFileSync('./__fixtures__/file1.json', 'utf-8')).toEqual(
     fileData1,
   );

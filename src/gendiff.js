@@ -1,17 +1,17 @@
 import _ from 'lodash';
+import parseFile from './parseFile.js';
 
 const gendiff = (file1, file2) => {
   let result = '{';
-
   const union = _.union(
-    Object.entries(JSON.parse(file1)),
-    Object.entries(JSON.parse(file2)),
+    Object.entries(parseFile(file1)),
+    Object.entries(parseFile(file2)),
   );
 
   const uniq = _.uniqWith(union, _.isEqual).sort();
 
-  const obj1 = JSON.parse(file1);
-  const obj2 = JSON.parse(file2);
+  const obj1 = parseFile(file1);
+  const obj2 = parseFile(file2);
 
   uniq.forEach(([key, value]) => {
     if (obj1[key] === obj2[key]) {

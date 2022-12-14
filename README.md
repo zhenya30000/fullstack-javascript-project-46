@@ -8,4 +8,7 @@
 <a href="https://codeclimate.com/github/zhenya30000/fullstack-javascript-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/efb541b8faa9a6d27aab/test_coverage" /></a>
 
 Step 3:
-<a href="https://asciinema.org/a/sC36C7guQ0bfgIcGvhD1eOO45" target="_blank"><img src="https://asciinema.org/a/sC36C7guQ0bfgIcGvhD1eOO45.svg" /></a>
+<a href="https://asciinema.org/a/pJ9zQKBFQCHPk0b8FivcCQLGq" target="_blank"><img src="https://asciinema.org/a/pJ9zQKBFQCHPk0b8FivcCQLGq.svg" /></a>
+
+Step 5:
+<a href="https://asciinema.org/a/zNDQP6yOskWYWRqU388dOo4Qq" target="_blank"><img src="https://asciinema.org/a/zNDQP6yOskWYWRqU388dOo4Qq.svg" /></a>
