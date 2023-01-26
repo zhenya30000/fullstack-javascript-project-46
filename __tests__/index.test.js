@@ -1,5 +1,5 @@
 import fs from 'fs';
-import gendiff from '../index.js';
+import gendiff from '../src/index.js';
 import parseFile from '../src/parseFile.js';
 
 let fileData1;
@@ -14,6 +14,12 @@ test('JSON parser', () => {
 
 test('YML parser', () => {
   expect(typeof parseFile('./__fixtures__/file1.yml')).toEqual('object');
+});
+
+test('Recursive mainflow with JSON files', () => {
+  expect(
+    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json'),
+  ).toEqual(fs.readFileSync('./__fixtures__/recursiveDiff', 'utf-8'));
 });
 
 test('Function mainflow with JSON files', () => {
