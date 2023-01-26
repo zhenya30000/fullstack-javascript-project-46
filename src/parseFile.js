@@ -1,18 +1,13 @@
-import fs from 'fs';
 import yaml from 'js-yaml';
-import path from 'path';
-import { cwd } from 'process';
 
-const parseFile = (filePath) => {
-  const resolvedPath = path.resolve(cwd(filePath), filePath);
-  const fileType = path.extname(resolvedPath);
+const parseFile = (data, fileType) => {
   switch (fileType) {
     case '.yml':
-      return yaml.load(fs.readFileSync(resolvedPath, 'utf-8'));
+      return yaml.load(data);
     case '.yaml':
-      return yaml.load(fs.readFileSync(resolvedPath, 'utf-8'));
+      return yaml.load(data);
     case '.json':
-      return JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'));
+      return JSON.parse(data);
     default:
       return console.error('Unknown file type');
   }
