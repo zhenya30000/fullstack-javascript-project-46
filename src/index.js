@@ -1,7 +1,7 @@
 import path from 'path';
 import { cwd } from 'process';
 import fs from 'fs';
-import getChanges from './getChanges.js';
+import buildAst from './buildAst.js';
 import parseFile from './parseFile.js';
 import stylish from './stylish.js';
 
@@ -19,8 +19,8 @@ const gendiff = (file1, file2) => {
   const beforeParsedData = parseFile(fs.readFileSync(beforePath, 'utf-8'), beforeExt);
   const afterParsedData = parseFile(fs.readFileSync(afterPath, 'utf-8'), afterExt);
 
-  const changes = getChanges(beforeParsedData, afterParsedData);
-  return stylish(changes);
+  const ast = buildAst(beforeParsedData, afterParsedData);
+  return `{\n${stylish(ast)}\n}`;
 };
 
 export default gendiff;
@@ -31,3 +31,4 @@ console.log(
     './__fixtures__/recursiveFile2.json',
   ),
 );
+

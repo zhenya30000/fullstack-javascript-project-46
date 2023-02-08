@@ -1,69 +1,66 @@
 import _ from 'lodash';
 
-const indent = (depth) => '  '.repeat(depth);
+const replacer = '  ';
 
-const expandObj = (node, depth) => {
-  if (!_.isObject(node)) {
-    return node;
+const stringify = (value, spacesCount) => {
+  if (!_.isObject(value)) {
+    return `${value}`;
   }
-  const keys = Object.keys(node);
-  let result = '';
-  keys.forEach((key) => {
-    if (_.isObject(node[key])) {
-      result += `{\n${indent(depth)}${key}: ${expandObj(node[key], depth)}`;
-    } else {
-      result += `{\n${indent(depth + 2)}${key}: ${node[key]}\n${indent(depth + 1)}}`;
+  return Object.keys(value).reduce((acc, key) => {
+    console.log('>>>', key, value[key]);
+    console.log(_.isObject(value[key]));
+    const indent = spacesCount + 2;
+    if (_.isObject(value[key])) {
+      return acc.concat(
+        [
+          `${replacer.repeat(indent)}  ${key}: ${stringify(
+            value[key],
+            indent,
+          )}`,
+        ].join('\n'),
+      );
     }
-  });
-  return result;
+    return acc.concat(
+      [
+        '{',
+        `${replacer.repeat(indent)}  ${key}: ${value[key]}`,
+        `${replacer.repeat(spacesCount + 1)}}`,
+      ].join('\n'),
+    );
+  }, []);
 };
 
-const stylish = (astTree) => {
-  const sortedTree = _.cloneDeep(astTree);
-  for (let i = 0; i < sortedTree.length - 1; i += 1) {
-    if (_.has(sortedTree[i], 'children')) {
-      sortedTree[i].children.sort((a, b) => (a.key < b.key ? -1 : 0));
-    }
-  }
-  let level = 0;
-  const iter = (currentItem, acc) => {
-    let result = acc;
-    currentItem.forEach((item) => {
-      const { key, value, type, depth, children, beforeValue, afterValue } =
-        item;
-      level = depth;
-      const expandedValue = expandObj(value, depth);
+const stylish = (ast, indentCount = 1) => {
+  /*   console.log(JSON.stringify(ast, null, ' ')); */
+  const x = ' ';
+  return ast
+    .map((node) => {
+      const { key, value, type, children, beforeValue, afterValue } = node;
+      const expandedValue = stringify(value, indentCount);
       switch (type) {
-        case 'object':
-          result = result.concat(
-            `\n${indent(depth + 1)}${key}: ${iter(children, '{')}`,
-          );
-          break;
-        case 'removed':
-          result += `\n${indent(depth)}- ${key}: ${expandedValue}`;
-          break;
+        case 'nested':
+          return `${replacer.repeat(indentCount)}  ${key}: {\n${stylish(
+            children,
+            indentCount + 2,
+          )}\n ${replacer.repeat(indentCount)} }`;
         case 'added':
-          result += `\n${indent(depth)}+ ${key}: ${expandedValue}`;
-          break;
+          return `${replacer.repeat(indentCount)}+ ${key}: ${expandedValue}`;
+        case 'deleted':
+          return `${replacer.repeat(indentCount)}- ${key}: ${expandedValue}`;
         case 'unchanged':
-          result += `\n${indent(depth)}${key}: ${expandedValue}`;
-          break;
+          return `${replacer.repeat(indentCount)}  ${key}: ${expandedValue}`;
         case 'changed':
-          result += `\n${indent(depth)}- ${key}: ${expandObj(
+          return `${replacer.repeat(indentCount)}- ${key}: ${stringify(
             beforeValue,
-            depth,
-          )}`;
-          result += `\n${indent(depth)}+ ${key}: ${expandObj(
+            indentCount,
+          )}\n${'  '.repeat(indentCount)}+ ${key}: ${stringify(
             afterValue,
-            depth,
+            indentCount,
           )}`;
-          break;
         default:
       }
-    });
-    return `${result}\n${indent(level - 1)}}____`;
-  };
-  return iter(sortedTree, '{');
+    })
+    .join('\n');
 };
 
 export default stylish;

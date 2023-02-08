@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getChanges = (before, after) => {
+const buildAst = (before, after) => {
   const iter = (before, after, depth) => {
     let result = [];
     const keys = _.union(Object.keys(before), Object.keys(after));
@@ -64,4 +64,4 @@ const getChanges = (before, after) => {
   return iter(before, after, 1);
 };
 
-export default getChanges;
+export default buildAst;
