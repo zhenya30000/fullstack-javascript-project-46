@@ -12,3 +12,6 @@ Step 3:
 
 Step 5:
 <a href="https://asciinema.org/a/zNDQP6yOskWYWRqU388dOo4Qq" target="_blank"><img src="https://asciinema.org/a/zNDQP6yOskWYWRqU388dOo4Qq.svg" /></a>
+
+Step 6:
+<a href="https://asciinema.org/a/MDspwdc2y3l5lph8K7VqZDtLh" target="_blank"><img src="https://asciinema.org/a/MDspwdc2y3l5lph8K7VqZDtLh.svg" /></a>

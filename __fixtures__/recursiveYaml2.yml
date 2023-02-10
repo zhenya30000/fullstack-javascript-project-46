@@ -1,0 +1,24 @@
+Child:
+    police:
+        name: Alice
+
+    bob:
+        name: Bob
+
+    grace:
+        name: Bobby
+        same: Grace
+
+    judy:
+        name: Judy
+
+Parent:
+    parent1:
+        name: Parent 1
+        children: ['Child(alice)', 'Child(bob)']
+
+    parent2:
+        name: Parent 2
+        children:
+          - 'Child(grace)'
+          - 'Child(judy)'

@@ -1,66 +1,63 @@
 import _ from 'lodash';
 
-const replacer = '  ';
+const getIndent = (num) => '  '.repeat(num);
 
-const stringify = (value, spacesCount) => {
-  if (!_.isObject(value)) {
-    return `${value}`;
+const stringify = (item, indentCount) => {
+  if (!_.isObject(item)) {
+    return item;
   }
-  return Object.keys(value).reduce((acc, key) => {
-    console.log('>>>', key, value[key]);
-    console.log(_.isObject(value[key]));
-    const indent = spacesCount + 2;
-    if (_.isObject(value[key])) {
-      return acc.concat(
-        [
-          `${replacer.repeat(indent)}  ${key}: ${stringify(
-            value[key],
-            indent,
-          )}`,
-        ].join('\n'),
-      );
+  const keys = Object.keys(item);
+
+  const result = keys.map((node) => {
+    if (_.isObject(item[node])) {
+      return `${getIndent(indentCount + 3)}${node}: ${stringify(
+        item[node],
+        indentCount + 2,
+      )}`;
     }
-    return acc.concat(
-      [
-        '{',
-        `${replacer.repeat(indent)}  ${key}: ${value[key]}`,
-        `${replacer.repeat(spacesCount + 1)}}`,
-      ].join('\n'),
-    );
-  }, []);
+    return `${getIndent(indentCount + 3)}${node}: ${item[node]}`;
+  });
+  return `{\n${result.join('\n')}\n${getIndent(indentCount + 1)}}`;
 };
 
-const stylish = (ast, indentCount = 1) => {
-  /*   console.log(JSON.stringify(ast, null, ' ')); */
-  const x = ' ';
-  return ast
-    .map((node) => {
-      const { key, value, type, children, beforeValue, afterValue } = node;
-      const expandedValue = stringify(value, indentCount);
-      switch (type) {
-        case 'nested':
-          return `${replacer.repeat(indentCount)}  ${key}: {\n${stylish(
-            children,
-            indentCount + 2,
-          )}\n ${replacer.repeat(indentCount)} }`;
-        case 'added':
-          return `${replacer.repeat(indentCount)}+ ${key}: ${expandedValue}`;
-        case 'deleted':
-          return `${replacer.repeat(indentCount)}- ${key}: ${expandedValue}`;
-        case 'unchanged':
-          return `${replacer.repeat(indentCount)}  ${key}: ${expandedValue}`;
-        case 'changed':
-          return `${replacer.repeat(indentCount)}- ${key}: ${stringify(
-            beforeValue,
-            indentCount,
-          )}\n${'  '.repeat(indentCount)}+ ${key}: ${stringify(
-            afterValue,
-            indentCount,
-          )}`;
-        default:
-      }
-    })
-    .join('\n');
+const buildDiff = (ast, indentCount = 1) => {
+  const result = ast.flatMap((item) => {
+    const { key, value, type, children, beforeValue, afterValue } = item;
+    switch (type) {
+      case 'nested':
+        return [
+          `${getIndent(indentCount + 1)}${key}: {`,
+          `${buildDiff(children, indentCount + 2)}\n${getIndent(
+            indentCount + 1,
+          )}}`,
+        ];
+      case 'added':
+        return `${getIndent(indentCount)}+ ${key}: ${stringify(
+          value,
+          indentCount,
+        )}`;
+      case 'deleted':
+        return `${getIndent(indentCount)}- ${key}: ${stringify(
+          value,
+          indentCount,
+        )}`;
+      case 'changed':
+        return `${getIndent(indentCount)}- ${key}: ${stringify(
+          beforeValue,
+          indentCount,
+        )}\n${getIndent(indentCount)}+ ${key}: ${stringify(
+          afterValue,
+          indentCount,
+        )}`;
+      case 'unchanged':
+        return `${getIndent(indentCount + 1)}${key}: ${stringify(value)}`;
+      default:
+        console.error('Unknown type');
+    }
+  });
+  return result.join('\n');
 };
+
+const stylish = (ast) => `{\n${buildDiff(ast)}\n}`;
 
 export default stylish;
