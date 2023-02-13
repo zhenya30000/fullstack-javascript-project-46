@@ -60,6 +60,6 @@ const buildDiff = (ast, indentCount = 1) => {
   return result.join('\n');
 };
 
-const tree = (ast) => `{\n${buildDiff(ast)}\n}\n`;
+const tree = (ast) => `{\n${buildDiff(ast)}\n}`;
 
 export default tree;
