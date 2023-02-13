@@ -11,6 +11,6 @@ export default (ast, type = 'tree') => {
     case 'json':
       return json(ast);
     default:
-      return console.error('Unknown format type');
+      return console.error(`Unknown format type ${type}`);
   }
 };
