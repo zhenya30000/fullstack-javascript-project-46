@@ -24,12 +24,8 @@ const gendiff = (file1, file2, format) => {
     fs.readFileSync(afterPath, 'utf-8'),
     afterExt,
   );
-  console.log('before>>', JSON.stringify(beforeParsedData, null, ' '));
-  console.log('after>>', JSON.stringify(afterParsedData, null, ' '));
   const ast = buildAst(beforeParsedData, afterParsedData);
   return stylish(ast, format);
 };
 
 export default gendiff;
-
-console.log(gendiff('./__fixtures__/recursiveYaml.yml', './__fixtures__/recursiveYaml.yml', 'tree'));
