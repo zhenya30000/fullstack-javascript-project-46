@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const buildAst = (before, after) => {
-  const keys = _.union(Object.keys(before), Object.keys(after)).sort();
+  const keys = [..._.union(Object.keys(before), Object.keys(after))].sort();
 
   return keys.map((key) => {
     const beforeHasKey = _.has(before, key);
