@@ -40,15 +40,12 @@ const buildAst = (before, after) => {
         value: after[key],
       };
     }
-
-    if (!_.isEqual(before[key], after[key])) {
-      return {
-        type: 'changed',
-        key,
-        beforeValue: before[key],
-        afterValue: after[key],
-      };
-    }
+    return {
+      type: 'changed',
+      key,
+      beforeValue: before[key],
+      afterValue: after[key],
+    };
   });
 };
 

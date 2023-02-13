@@ -10,9 +10,9 @@ program
   .description('Compares two configuration files and shows a difference.')
   .version('0.0.1')
   .arguments('<firstConfig> <secondConfig>')
-  .option('-f, --format [type]', 'Output format')
-  .action((firstConfig, secondConfig, options) => {
-    console.log(gendiff(firstConfig, secondConfig, program.format = 'stylish'));
+  .option('-f, --format [type]', 'Output format', 'tree')
+  .action((firstConfig, secondConfig, formatName) => {
+    console.log(gendiff(firstConfig, secondConfig, formatName));
   });
 
 program.parse();

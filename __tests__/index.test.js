@@ -9,8 +9,14 @@ beforeAll(() => {
 
 test('Recursive mainflow with JSON files', () => {
   expect(
-    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json'),
+    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json', 'tree'),
   ).toEqual(fs.readFileSync('./__fixtures__/recursiveDiff', 'utf-8'));
+});
+
+test('Plain output', () => {
+  expect(
+    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json', 'plain'),
+  ).toEqual(fs.readFileSync('./__fixtures__/plainDiff', 'utf-8'));
 });
 
 test('Function mainflow with JSON files', () => {

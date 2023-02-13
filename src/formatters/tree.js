@@ -22,7 +22,9 @@ const stringify = (item, indentCount) => {
 
 const buildDiff = (ast, indentCount = 1) => {
   const result = ast.flatMap((item) => {
-    const { key, value, type, children, beforeValue, afterValue } = item;
+    const {
+      key, value, type, children, beforeValue, afterValue,
+    } = item;
     switch (type) {
       case 'nested':
         return [
@@ -52,12 +54,12 @@ const buildDiff = (ast, indentCount = 1) => {
       case 'unchanged':
         return `${getIndent(indentCount + 1)}${key}: ${stringify(value)}`;
       default:
-        console.error('Unknown type');
+        return console.error('Unknown type');
     }
   });
   return result.join('\n');
 };
 
-const stylish = (ast) => `{\n${buildDiff(ast)}\n}`;
+const tree = (ast) => `{\n${buildDiff(ast)}\n}`;
 
-export default stylish;
+export default tree;
