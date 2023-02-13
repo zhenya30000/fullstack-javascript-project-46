@@ -1,11 +1,11 @@
-import tree from './tree.js';
+import stylish from './stylish.js';
 import plain from './plain.js';
 import json from './json.js';
 
-export default (ast, type = 'tree') => {
+export default (ast, type = 'stylish') => {
   switch (type) {
-    case 'tree':
-      return tree(ast);
+    case 'stylish':
+      return stylish(ast);
     case 'plain':
       return plain(ast);
     case 'json':

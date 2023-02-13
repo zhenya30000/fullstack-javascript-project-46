@@ -21,13 +21,13 @@ test('hexlet YML files', () => {
 
 test('Recursive mainflow with JSON files', () => {
   expect(
-    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json', 'tree'),
+    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json'),
   ).toEqual(fs.readFileSync('./__fixtures__/recursiveDiff', 'utf-8'));
 });
 
 test('Recursive mainflow with YML files', () => {
   expect(
-    gendiff('./__fixtures__/recursiveYaml.yml', './__fixtures__/recursiveYaml2.yml', 'tree'),
+    gendiff('./__fixtures__/recursiveYaml.yml', './__fixtures__/recursiveYaml2.yml'),
   ).toEqual(fs.readFileSync('./__fixtures__/recursiveDiff', 'utf-8'));
 });
 
