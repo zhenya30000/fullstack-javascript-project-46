@@ -22,7 +22,9 @@ const stringify = (item, indentCount) => {
 
 const buildDiff = (ast, indentCount = 1) => {
   const result = ast.flatMap((item) => {
-    const { key, value, type, children, beforeValue, afterValue } = item;
+    const {
+      key, value, type, children, beforeValue, afterValue,
+    } = item;
     switch (type) {
       case 'nested':
         return [
