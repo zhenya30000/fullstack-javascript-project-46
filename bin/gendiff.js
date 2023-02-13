@@ -12,7 +12,6 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .option('-f, --format <type>', 'Output format', 'tree')
   .action((firstConfig, secondConfig, formatName) => {
-/*     console.log('1', formatName.format); */
     console.log(gendiff(firstConfig, secondConfig, formatName.format));
   });
 
