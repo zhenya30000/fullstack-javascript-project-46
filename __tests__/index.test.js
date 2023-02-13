@@ -19,6 +19,12 @@ test('Plain output', () => {
   ).toEqual(fs.readFileSync('./__fixtures__/plainDiff', 'utf-8'));
 });
 
+test('JSON output', () => {
+  expect(
+    gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json', 'json'),
+  ).toEqual(fs.readFileSync('./__fixtures__/jsonDiff', 'utf-8'));
+});
+
 test('Function mainflow with JSON files', () => {
   expect(
     gendiff('./__fixtures__/file1.json', './__fixtures__/file2.json'),

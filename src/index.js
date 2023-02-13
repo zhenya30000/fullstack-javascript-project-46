@@ -29,18 +29,3 @@ const gendiff = (file1, file2, format) => {
 };
 
 export default gendiff;
-
-/* console.log(
-  gendiff(
-    './__fixtures__/recursiveFile1.json',
-    './__fixtures__/recursiveFile2.json',
-    'plainFormatter',
-  ),
-); */
-
-/* console.log(
-  gendiff(
-    './__fixtures__/recursiveYaml.yml',
-    './__fixtures__/recursiveYaml2.yml',
-  ),
-); */
