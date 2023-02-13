@@ -13,6 +13,12 @@ test('Recursive mainflow with JSON files', () => {
   ).toEqual(fs.readFileSync('./__fixtures__/recursiveDiff', 'utf-8'));
 });
 
+test('Recursive mainflow with YML files', () => {
+  expect(
+    gendiff('./__fixtures__/recursiveYaml.yml', './__fixtures__/recursiveYaml2.yml', 'tree'),
+  ).toEqual(fs.readFileSync('./__fixtures__/recursiveDiff', 'utf-8'));
+});
+
 test('Plain output', () => {
   expect(
     gendiff('./__fixtures__/recursiveFile1.json', './__fixtures__/recursiveFile2.json', 'plain'),
