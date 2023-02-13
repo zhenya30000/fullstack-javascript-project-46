@@ -35,6 +35,6 @@ const buildDiff = (ast, pathLog = '') => {
   return result.filter((line) => line !== null).join('\n');
 };
 
-const plain = (ast) => buildDiff(ast);
+const plain = (ast) => `${buildDiff(ast)}\n`;
 
 export default plain;
