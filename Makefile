@@ -21,8 +21,3 @@ watch:
 
 coverage:         
 	NODE_OPTIONS=--experimental-vm-modules npx jest --coverage
-
-refactoring: 
-	git add .
-	git commit -m 'refactoring'
-	git push

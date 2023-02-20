@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "type": "module",
-  "description": "[![Actions Status](https://github.com/zhenya30000/fullstack-javascript-project-46/workflows/hexlet-check/badge.svg)](https://github.com/zhenya30000/fullstack-javascript-project-46/actions)",
+  "description": "CLI application that generates a difference between two config files. Accepts JSON and IML input",
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
