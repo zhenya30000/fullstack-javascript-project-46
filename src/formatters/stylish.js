@@ -27,30 +27,13 @@ const buildDiff = (ast, indentCount = 1) => {
     } = item;
     switch (type) {
       case 'nested':
-        return [
-          `${getIndent(indentCount + 1)}${key}: {`,
-          `${buildDiff(children, indentCount + 2)}\n${getIndent(
-            indentCount + 1,
-          )}}`,
-        ];
+        return [`${getIndent(indentCount + 1)}${key}: {`, `${buildDiff(children, indentCount + 2)}\n${getIndent(indentCount + 1)}}`];
       case 'added':
-        return `${getIndent(indentCount)}+ ${key}: ${stringify(
-          value,
-          indentCount,
-        )}`;
+        return `${getIndent(indentCount)}+ ${key}: ${stringify(value, indentCount)}`;
       case 'deleted':
-        return `${getIndent(indentCount)}- ${key}: ${stringify(
-          value,
-          indentCount,
-        )}`;
+        return `${getIndent(indentCount)}- ${key}: ${stringify(value, indentCount)}`;
       case 'changed':
-        return `${getIndent(indentCount)}- ${key}: ${stringify(
-          beforeValue,
-          indentCount,
-        )}\n${getIndent(indentCount)}+ ${key}: ${stringify(
-          afterValue,
-          indentCount,
-        )}`;
+        return `${getIndent(indentCount)}- ${key}: ${stringify(beforeValue, indentCount)}\n${getIndent(indentCount)}+ ${key}: ${stringify(afterValue, indentCount)}`;
       case 'unchanged':
         return `${getIndent(indentCount + 1)}${key}: ${stringify(value)}`;
       default:
