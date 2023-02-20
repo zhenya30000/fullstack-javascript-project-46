@@ -54,7 +54,7 @@ const buildDiff = (ast, indentCount = 1) => {
       case 'unchanged':
         return `${getIndent(indentCount + 1)}${key}: ${stringify(value)}`;
       default:
-        return console.error('Unknown type');
+        throw new Error(`Unknown type: ${type}`);
     }
   });
   return result.join('\n');

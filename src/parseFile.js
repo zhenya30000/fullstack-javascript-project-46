@@ -9,7 +9,7 @@ const parseFile = (data, fileType) => {
     case '.json':
       return JSON.parse(data);
     default:
-      return console.error('Unknown file type');
+      throw new Error(`Unknown file type: ${fileType}`);
   }
 };
 

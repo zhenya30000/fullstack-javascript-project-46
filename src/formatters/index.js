@@ -11,6 +11,6 @@ export default (ast, type = 'stylish') => {
     case 'json':
       return json(ast);
     default:
-      return console.error(`Unknown format type ${type}`);
+      throw new Error(`Unknown format type: ${type}`);
   }
 };
